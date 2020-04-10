@@ -11,7 +11,7 @@ class HomeController extends Controller {
     const sql = 'SELECT article.id as id,' +
               'article.title as title,' +
               'article.introduce as introduce,' +
-              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d %H:%i:%s') as addTime," +
+              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
               'article.view_count as viewCount,' +
               'type.name as typeName ' +
               'FROM article LEFT JOIN type ON article.type_id = type.id';
@@ -28,7 +28,7 @@ class HomeController extends Controller {
               'article.title as title,' +
               'article.introduce as introduce,' +
               'article.content as articleContent,' +
-              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d %H:%i:%s') as addTime," +
+              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
               'article.view_count as viewCount,' +
               'type.id as typeId,' +
               'type.name as typeName ' +
@@ -43,7 +43,9 @@ class HomeController extends Controller {
 
   async getTypeInfo() {
     const result = await this.app.mysql.select('type');
-    this.ctx.body = { data: result };
+    this.ctx.body = {
+      data: result,
+    };
   }
 
   async getArticleListByTypeId() {
@@ -51,7 +53,7 @@ class HomeController extends Controller {
     const sql = 'SELECT article.id as id,' +
               'article.title as title,' +
               'article.introduce as introduce,' +
-              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d %H:%i:%s') as addTime," +
+              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
               'article.view_count as viewCount,' +
               'type.name as typeName ' +
               'FROM article LEFT JOIN type ON article.type_id = type.id ' +
