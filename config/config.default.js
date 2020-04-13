@@ -28,7 +28,8 @@ module.exports = appInfo => {
       host: 'localhost',
       port: '3306',
       user: 'root',
-      password: 'lq100f',
+      // password: 'lq100f',
+      password: 'LQ100f@@',
       database: 'react_blog',
     },
     // load into app, default is open
