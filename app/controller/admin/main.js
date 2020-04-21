@@ -55,7 +55,8 @@ class MainController extends Controller {
     const sql = 'SELECT article.id as id,' +
               'article.title as title,' +
               'article.introduce as introduce,' +
-              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d %H:%i:%s') as addTime," +
+              'article.image as image,' +
+              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
               'article.view_count as viewCount,' +
               'type.name as typeName ' +
               'FROM article LEFT JOIN type ON article.type_id = type.id ' +
@@ -81,6 +82,7 @@ class MainController extends Controller {
     const sql = 'SELECT article.id as id,' +
                 'article.title as title,' +
                 'article.introduce as introduce,' +
+                'article.image as image,' +
                 'article.content as articleContent,' +
                 "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
                 'article.view_count as viewCount,' +

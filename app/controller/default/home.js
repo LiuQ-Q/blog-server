@@ -11,10 +11,29 @@ class HomeController extends Controller {
     const sql = 'SELECT article.id as id,' +
               'article.title as title,' +
               'article.introduce as introduce,' +
+              'article.image as image,' +
               "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
               'article.view_count as viewCount,' +
               'type.name as typeName ' +
               'FROM article LEFT JOIN type ON article.type_id = type.id';
+
+    const results = await this.app.mysql.query(sql);
+    this.ctx.body = {
+      data: results,
+    };
+  }
+
+  async getArticleListByTypeId() {
+    const id = this.ctx.params.id;
+    const sql = 'SELECT article.id as id,' +
+              'article.title as title,' +
+              'article.introduce as introduce,' +
+              'article.image as image,' +
+              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
+              'article.view_count as viewCount,' +
+              'type.name as typeName ' +
+              'FROM article LEFT JOIN type ON article.type_id = type.id ' +
+              'WHERE article.type_id=' + id;
 
     const results = await this.app.mysql.query(sql);
     this.ctx.body = {
@@ -45,23 +64,6 @@ class HomeController extends Controller {
     const result = await this.app.mysql.select('type');
     this.ctx.body = {
       data: result,
-    };
-  }
-
-  async getArticleListByTypeId() {
-    const id = this.ctx.params.id;
-    const sql = 'SELECT article.id as id,' +
-              'article.title as title,' +
-              'article.introduce as introduce,' +
-              "FROM_UNIXTIME(article.add_time, '%Y-%m-%d') as addTime," +
-              'article.view_count as viewCount,' +
-              'type.name as typeName ' +
-              'FROM article LEFT JOIN type ON article.type_id = type.id ' +
-              'WHERE article.type_id=' + id;
-
-    const results = await this.app.mysql.query(sql);
-    this.ctx.body = {
-      data: results,
     };
   }
 }
