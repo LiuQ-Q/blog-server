@@ -29,6 +29,36 @@ class MainController extends Controller {
     this.ctx.body = { data: typeInfo };
   }
 
+  async addType() {
+    const typeInfo = this.ctx.request.body;
+    const result = await this.app.mysql.insert('type', typeInfo);
+    const insertSuccess = result.affectedRows === 1;
+    const insertId = result.insertId;
+
+    this.ctx.body = {
+      isSuccess: insertSuccess,
+      insertId,
+    };
+  }
+
+  async updateType() {
+    const typeInfo = this.ctx.request.body;
+    const result = await this.app.mysql.update('type', typeInfo);
+    const insertSuccess = result.affectedRows === 1;
+
+    this.ctx.body = {
+      isSuccess: insertSuccess,
+    };
+  }
+
+  async deletTypeById() {
+    const typeId = this.ctx.params.id;
+    const result = await this.app.mysql.delete('type', { id: typeId });
+    this.ctx.body = {
+      data: result,
+    };
+  }
+
   async addArticle() {
     const article = this.ctx.request.body;
     const result = await this.app.mysql.insert('article', article);

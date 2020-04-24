@@ -4,7 +4,12 @@ module.exports = app => {
   const { router, controller } = app;
   const adminauth = app.middleware.adminauth();
   router.post('/admin/login', controller.admin.main.login);
+
   router.get('/admin/getTypeInfo', adminauth, controller.admin.main.getTypeInfo);
+  router.post('/admin/addType', adminauth, controller.admin.main.addType);
+  router.post('/admin/updateType', adminauth, controller.admin.main.updateType);
+  router.get('/admin/deletTypeById/:id', adminauth, controller.admin.main.deletTypeById);
+
   router.post('/admin/addArticle', adminauth, controller.admin.main.addArticle);
   router.post('/admin/updateArticle', adminauth, controller.admin.main.updateArticle);
   router.get('/admin/getArticleList', adminauth, controller.admin.main.getArticleList);
