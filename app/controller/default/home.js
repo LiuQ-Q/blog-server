@@ -60,6 +60,16 @@ class HomeController extends Controller {
     };
   }
 
+  async updateArticle() {
+    const article = this.ctx.request.body;
+    const result = await this.app.mysql.update('article', article);
+    const updateSuccess = result.affectedRows === 1;
+
+    this.ctx.body = {
+      isSuccess: updateSuccess,
+    };
+  }
+
   async getTypeInfo() {
     const result = await this.app.mysql.select('type');
     this.ctx.body = {
